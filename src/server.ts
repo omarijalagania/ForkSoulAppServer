@@ -1,10 +1,18 @@
-import express from "express"
+import 'dotenv/config'
+import express from 'express'
+import cors from 'cors'
+import bodyParser from 'body-parser'
+import { connectDB } from './config'
 
 const app = express()
 
-app.get("/", (req, res) => {
-  res.send("hello")
-})
-const PORT = 3000
+connectDB(false)
 
-app.listen(PORT, () => console.log(`Server Running on port ${PORT}`))
+app.use(cors())
+app.use(bodyParser.json())
+
+app.listen(process.env.PORT, () => {
+  console.log(
+    `Server is running on: ${process.env.BASE_URL}:${process.env.PORT}`
+  )
+})

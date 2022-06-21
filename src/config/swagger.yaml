@@ -1,0 +1,541 @@
+openapi: 3.0.0
+info:
+  title: Company Dashboard
+  description: view, add, edit and remove companies and employees
+  version: 1.0.0
+
+servers:
+  - url: https://employee-companies-api.omar.redberryinternship.ge/
+    description: production server
+
+  - url: http://localhost:4000/
+    description: local server
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+paths:
+  /login:
+    post:
+      tags:
+        - Authorization
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                email:
+                  type: string
+                  required: true
+                password:
+                  type: string
+                  required: true
+              example:
+                email: test@gmail.com
+                password: '1234'
+      responses:
+        '200':
+          description: User Auth.
+          content:
+            application/json:
+              schema:
+                properties:
+                  email:
+                    type: string
+                    required: true
+                  password:
+                    type: string
+                    required: true
+
+                example:
+                  token: 'sfjririowejfisjfjseifjsejfesij'
+
+  /company/add:
+    post:
+      tags:
+        - Company
+      security:
+        - bearerAuth: []
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                name:
+                  type: string
+                  required: true
+                website:
+                  type: string
+                  required: true
+                logo:
+                  type: string
+                  required: true
+                date:
+                  type: string
+                  required: true
+              example:
+                name: redberry
+                website: redberry.ge
+                logo: https://some-website/logo.png
+                date: 12-05-2014
+      responses:
+        '200':
+          description: Add company.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                      required: true
+                    website:
+                      type: string
+                      required: true
+                    logo:
+                      type: string
+                      required: true
+                    date:
+                      type: string
+                      required: true
+
+                  example:
+                    name: redberry
+                    website: redberry.ge
+                    logo: https://some-website/logo.png
+                    date: 12-05-2014
+
+  /company/get:
+    get:
+      tags:
+        - Company
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: get Company
+          content:
+            application/json:
+              schema:
+                properties:
+                  name:
+                    type: string
+                    required: true
+                  website:
+                    type: string
+                    required: true
+                  logo:
+                    type: string
+                    required: true
+                  date:
+                    type: string
+                    required: true
+
+                example:
+                  'company':
+                    [
+                      {
+                        '_id': '62b07792da893d093c5746c1',
+                        'name': 'redberry',
+                        'website': 'redberry-edited.ge',
+                        'logo': 'https://some-website/logo2.png',
+                        'date': '12-05-2013',
+                      },
+                    ]
+
+  /company/get/{companyId}:
+    get:
+      summary: Get a company by ID
+      parameters:
+        - in: path
+          name: companyId
+          schema:
+            type: string
+          required: true
+          description: Detailed info about company
+      tags:
+        - Company
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: get Company.
+          content:
+            application/json:
+              schema:
+                properties:
+                  name:
+                    type: string
+                    required: true
+                  website:
+                    type: string
+                    required: true
+                  logo:
+                    type: string
+                    required: true
+                  date:
+                    type: string
+                    required: true
+
+                example:
+                  company:
+                    _id: 62a45fc83427dd469643e079
+                    name: redberry
+                    website: www.redberry.ge
+                    logo: http://some.logo.png
+                    date: 12/24/2004
+
+                  employees:
+                    - _id: 62a45fcf3427dd469643e07d
+                      name: John
+                      last_name: Doe
+                      company_name: redberry
+                      start_work_date: 12-25-2022
+                      born_date: 12-25-1989
+                      id_number: 4434354
+                      position: intern React Developer
+                      companyId: 62a45fc83427dd469643e079
+
+  /company/delete/{companyId}:
+    delete:
+      summary: Delete a company by ID
+      parameters:
+        - in: path
+          name: companyId
+          schema:
+            type: string
+          required: true
+          description: Delete company with id
+      tags:
+        - Company
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Delete company
+          content:
+            application/json:
+              schema:
+                properties:
+                  message:
+                    type: string
+
+                example:
+                  message: Company deleted
+
+  /company/edit/{companyId}:
+    patch:
+      summary: Edit company by ID
+      parameters:
+        - in: path
+          name: companyId
+          schema:
+            type: string
+          required: true
+          description: Edit company info with id
+
+      tags:
+        - Company
+      security:
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                name:
+                  type: string
+
+                website:
+                  type: string
+
+                logo:
+                  type: string
+
+                date:
+                  type: string
+              example:
+                name: redberry
+                website: redberry-edited.ge
+                logo: https://some-website/logo2.png
+                date: 12-05-2013
+      responses:
+        '200':
+          description: edit Company.
+          content:
+            application/json:
+              schema:
+                properties:
+                  message:
+                    type: string
+
+                example:
+                  message: 'Company Updated'
+
+  /employee/add:
+    post:
+      tags:
+        - Employee
+      security:
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                name:
+                  type: string
+                  required: true
+                last_name:
+                  type: string
+                  required: true
+                start_work_date:
+                  type: string
+                  required: true
+                born_date:
+                  type: string
+                  required: true
+                id_number:
+                  type: number
+                  required: true
+                position:
+                  type: string
+                  required: true
+                companyId:
+                  type: string
+                  required: true
+              example:
+                name: gela
+                last_name: geladze
+                start_work_date: 12-05-2016
+                born_date: 4-09-1990
+                id_number: 60004344334
+                position: Developer
+                companyId: 'erw4rrwerwer42323esfs'
+      responses:
+        '200':
+          description: Add employee
+          content:
+            application/json:
+              schema:
+                properties:
+                  name:
+                    type: string
+                    required: true
+                  last_name:
+                    type: string
+                    required: true
+                  company_name:
+                    type: string
+                    required: true
+                  start_work_date:
+                    type: string
+                    required: true
+                  born_date:
+                    type: string
+                    required: true
+                  id_number:
+                    type: number
+                    required: true
+                  position:
+                    type: string
+                    required: true
+                example:
+                  employee:
+                    {
+                      name: 'gela',
+                      last_name: 'geladze',
+                      start_work_date: '12-05-2016',
+                      born_date: '4-09-1990',
+                      id_number: 600000009999,
+                      position: 'Developer',
+                      companyId: '62b0a3811b371313a24d055a',
+                    }
+
+  /employee/get:
+    get:
+      tags:
+        - Employee
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Get employees
+          content:
+            application/json:
+              schema:
+                properties:
+                  name:
+                    type: string
+                    required: true
+                  last_name:
+                    type: string
+                    required: true
+                  company_name:
+                    type: string
+                    required: true
+                  start_work_date:
+                    type: string
+                    required: true
+                  born_date:
+                    type: string
+                    required: true
+                  id_number:
+                    type: number
+                    required: true
+                  position:
+                    type: string
+                    required: true
+
+                example:
+                  name: gela
+                  last_name: geladze
+                  company_name: websmart
+                  start_work_date: 12-05-2016
+                  born_date: 4-09-1990
+                  id_number: 60004344334
+                  position: Developer
+                  companyId: '62b0a3d11b371313a24d0562'
+
+  /employee/get/{employeeId}:
+    get:
+      summary: Get employee by ID
+      parameters:
+        - in: path
+          name: employeeId
+          schema:
+            type: string
+          required: true
+          description: Get employee by ID
+      tags:
+        - Employee
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Get employee
+          content:
+            application/json:
+              schema:
+                properties:
+                  name:
+                    type: string
+                    required: true
+                  last_name:
+                    type: string
+                    required: true
+                  company_name:
+                    type: string
+                    required: true
+                  start_work_date:
+                    type: string
+                    required: true
+                  born_date:
+                    type: string
+                    required: true
+                  id_number:
+                    type: number
+                    required: true
+                  position:
+                    type: string
+                    required: true
+
+                example:
+                  'employee':
+                    [
+                      {
+                        '_id': '62b0a4281b371313a24d0567',
+                        'name': 'bela',
+                        'last_name': 'beladze',
+                        'start_work_date': '12-05-2016',
+                        'born_date': '4-09-1990',
+                        'id_number': 60001112020,
+                        'position': 'Developer',
+                        'companyId': '62b0a3d11b371313a24d0562',
+                      },
+                    ]
+
+  /employee/delete/{employeeId}:
+    delete:
+      summary: Delete employee by ID
+      parameters:
+        - in: path
+          name: employeeId
+          schema:
+            type: string
+          required: true
+          description: Delete employee by ID
+      tags:
+        - Employee
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Delete employee
+          content:
+            application/json:
+              schema:
+                properties:
+                  message:
+                    type: string
+
+                example:
+                  message: Employee deleted
+
+  /employee/edit/{employeeId}:
+    patch:
+      summary: Edit employee by ID
+      parameters:
+        - in: path
+          name: employeeId
+          schema:
+            type: string
+          required: true
+          description: Edit employee by ID
+      tags:
+        - Employee
+      security:
+        - bearerAuth: []
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                name:
+                  type: string
+                last_name:
+                  type: string
+                start_work_date:
+                  type: string
+                born_date:
+                  type: string
+                id_number:
+                  type: number
+                position:
+                  type: string
+              example:
+                name: Gela
+                last_name: geladze
+                start_work_date: 12-05-2016
+                born_date: 4-09-1990
+                id_number: 60004344334
+                position: Middle Developer
+      responses:
+        '200':
+          description: Edit employee
+          content:
+            application/json:
+              schema:
+                properties:
+                  message:
+                    type: string
+
+                example:
+                  message: Employee edited
