@@ -40,7 +40,28 @@ export const getBandMembers = async (_: Request, res: Response) => {
   }
 }
 
+export const getOneBandMember = async (req: Request, res: Response) => {
+  try {
+    const bandMembers = await BandMember.find(
+      { _id: req.params.memberId },
+      { __v: 0 }
+    )
+    if (!bandMembers) {
+      res.status(404).send([])
+    } else {
+      res.status(200).json(bandMembers)
+    }
+  } catch (error) {
+    res.status(500).send(error)
+  }
+}
+
 export const editBandMember = async (req: Request, res: Response) => {
+  const { error } = validateBandMember(req.body)
+
+  if (error) {
+    return res.status(422).send(error.details[0].message)
+  }
   try {
     const bandMember = await BandMember.updateOne(
       {

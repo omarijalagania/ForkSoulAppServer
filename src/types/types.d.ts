@@ -12,3 +12,8 @@ export type BandMemberProps = {
   biography: string
   avatar: string
 }
+
+export type SocialNetworkProps = {
+  name: string
+  socialLink: string
+}
