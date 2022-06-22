@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon src/server.ts",
-    "user:create": "ts-node src/bin/create-user.ts"
+    "user:create": "ts-node src/bin/create-user.ts",
+    "build": "tsc --project ./"
   },
   "keywords": [],
   "author": "",

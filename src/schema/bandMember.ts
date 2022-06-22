@@ -1,24 +1,32 @@
 import Joi from 'joi'
+import { BandMemberProps } from 'types'
 
-const validateBandMember = (data: any) => {
+const validateBandMember = (data: BandMemberProps) => {
   const schema = Joi.object({
     name: Joi.string()
       .min(3)
-      .pattern(new RegExp('^[ა-ჰ0-9]{3,30}$'), 'Georgian only')
+      .pattern(new RegExp('[Ⴀ-\u10fe]$'), 'Georgian only')
+
       .required(),
     instrument: Joi.string()
       .min(2)
-      .pattern(new RegExp('^[ა-ჰ0-9]{3,30}$'), 'Georgian only')
+      .pattern(new RegExp('[Ⴀ-\u10fe]$'), 'Georgian only')
+
       .required(),
     orbitLength: Joi.number().min(60).max(300).required(),
     color: Joi.string()
-      .min(7)
-      .max(7)
-      .pattern(new RegExp('/#([a-f0-9]{3}){1,2}\b/i'), 'Enter valid color')
+      .length(7)
+      .pattern(
+        new RegExp(
+          /(?:#|0x)(?:[aA-fF0-9]{3}|[aA-fF0-9]{6})\b|(?:rgb|hsl)a?([^)]*)/
+        ),
+        'Enter valid color'
+      )
       .required(),
     biography: Joi.string()
-      .pattern(new RegExp('^[ა-ჰ0-9]{3,30}$'), 'Georgian only')
+      .pattern(new RegExp('[Ⴀ-\u10fe]$'), 'Georgian only')
       .required(),
+    avatar: Joi.string(),
   })
 
   return schema.validate(data)
