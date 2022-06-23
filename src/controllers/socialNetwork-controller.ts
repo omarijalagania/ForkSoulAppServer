@@ -1,7 +1,7 @@
 import { Request, Response } from 'express'
-import { SocialNetwork } from 'models'
+import { SocialNetwork } from '../models'
 
-import { validateSocialNetwork } from 'schema'
+import { validateSocialNetwork } from '../schema'
 
 export const addSocialNetwork = async (req: Request, res: Response) => {
   const { error } = validateSocialNetwork(req.body)
