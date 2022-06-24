@@ -19,7 +19,7 @@ connectDB(false)
 app.use(cors())
 app.use(bodyParser.json())
 app.use(express.urlencoded({ extended: false }))
-app.use('images', express.static(path.join(__dirname, 'images')))
+app.use('/images', express.static(path.join(__dirname, 'images')))
 
 app.use('/', AuthRouter)
 app.use('/band', BandRouter)
