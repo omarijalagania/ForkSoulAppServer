@@ -8,7 +8,7 @@ export const avatarUpload = async (req: Request, res: Response) => {
   }
   try {
     const avatarUpload = await Upload.create({
-      avatar: avatar.path,
+      avatar: avatar.path.substring(3),
       memberId: req.params.memberId,
     })
     if (avatarUpload) {
