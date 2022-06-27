@@ -6,11 +6,26 @@ export const avatarUpload = async (req: Request, res: Response) => {
   if (!avatar) {
     return res.status(422).send('No image found')
   }
+
   try {
+    const isExist = await Upload.findOne({ memberId: req.params.memberId })
+
+    if (isExist) {
+      const updateExisting = await Upload.findOneAndUpdate(
+        { memberId: req.params.memberId },
+        { avatar: avatar.path.substring(3) }
+      )
+      if (!updateExisting) {
+        return res.status(422).send('Error updating avatar')
+      }
+      return res.status(200).json({ message: 'Avatar updated' })
+    }
+
     const avatarUpload = await Upload.create({
       avatar: avatar.path.substring(3),
       memberId: req.params.memberId,
     })
+
     if (avatarUpload) {
       const uploaded = {
         avatar: avatar.path.substring(3),
