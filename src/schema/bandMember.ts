@@ -26,7 +26,6 @@ const validateBandMember = (data: BandMemberProps) => {
     biography: Joi.string()
       .pattern(new RegExp('[Ⴀ-\u10fe]$'), 'Georgian only')
       .required(),
-    avatar: Joi.string(),
   })
 
   return schema.validate(data)

@@ -21,9 +21,6 @@ const bandMemberSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  avatar: {
-    type: String,
-  },
 })
 
 export default mongoose.model('BandMember', bandMemberSchema)
