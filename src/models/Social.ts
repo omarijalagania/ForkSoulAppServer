@@ -5,10 +5,6 @@ const socialSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  socialLink: {
-    type: String,
-    required: true,
-  },
   socialUrl: {
     type: String,
   },

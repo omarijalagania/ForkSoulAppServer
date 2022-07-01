@@ -10,6 +10,7 @@ import {
   BandRouter,
   SocialNetworkRouter,
   UploadRouter,
+  BandInfoRouter,
 } from './routes'
 
 const app = express()
@@ -23,8 +24,10 @@ app.use('/images', express.static(path.join(__dirname, 'images')))
 
 app.use('/', AuthRouter)
 app.use('/band', BandRouter)
+app.use('/band-info', BandInfoRouter)
 app.use('/social-network', SocialNetworkRouter)
 app.use('/', upload.single('avatar'), UploadRouter)
+
 app.listen(process.env.PORT || '4400', () => {
   console.log(
     `Server is running on: ${process.env.BASE_URL}:${process.env.PORT}`
