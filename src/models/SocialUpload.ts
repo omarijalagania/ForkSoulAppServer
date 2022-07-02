@@ -6,6 +6,7 @@ const avatarUploadSchema = new mongoose.Schema({
   },
   memberId: {
     type: mongoose.Schema.Types.ObjectId,
+    ref: 'BandMember',
   },
 })
 

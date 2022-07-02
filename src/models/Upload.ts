@@ -6,6 +6,7 @@ const uploadSchema = new mongoose.Schema({
   },
   memberId: {
     type: mongoose.Schema.Types.ObjectId,
+    ref: 'BandMember',
   },
 })
 

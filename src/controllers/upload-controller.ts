@@ -1,5 +1,6 @@
 import { Request, Response } from 'express'
-import { Upload, SocialUpload } from '../models'
+import mongoose from 'mongoose'
+import { Upload, SocialUpload, BandAvatar } from '../models'
 
 export const avatarUpload = async (req: Request, res: Response) => {
   let avatar = req.file
@@ -107,6 +108,65 @@ export const getSocialAvatars = async (req: Request, res: Response) => {
       return res.status(200).json({ socialAvatar })
     } else {
       return res.status(422).send('Error getting Social avatar')
+    }
+  } catch (error) {
+    res.status(500).send(error)
+  }
+}
+
+export const bandAvatarUpload = async (req: Request, res: Response) => {
+  let bandAvatar = req.file
+  let bandId = req.params.bandId
+
+  if (!bandAvatar) {
+    return res.status(422).send('No image found')
+  }
+
+  try {
+    const isExist = await BandAvatar.findOne({
+      bandId: bandId,
+    })
+
+    if (isExist) {
+      const updateExisting = await BandAvatar.findOneAndUpdate(
+        { bandId: bandId },
+        { bandAvatar: bandAvatar.path.substring(3) }
+      )
+
+      if (!updateExisting) {
+        return res.status(422).send('Error updating band avatar')
+      }
+      return res.status(200).json({ message: 'Band avatar updated' })
+    }
+
+    const bandAvatarUpload = await BandAvatar.create({
+      bandAvatar: bandAvatar.path.substring(3),
+      bandId: bandId,
+    })
+
+    if (bandAvatarUpload) {
+      const uploaded = {
+        bandAvatar: bandAvatar.path.substring(3),
+        bandId: bandId,
+        _id: bandAvatarUpload._id,
+      }
+
+      return res.status(200).json({ message: 'Band avatar updated', uploaded })
+    } else {
+      return res.status(422).send('Error uploading band icon')
+    }
+  } catch (error) {
+    res.status(500).send(error)
+  }
+}
+
+export const getBandAvatar = async (req: Request, res: Response) => {
+  try {
+    const bandAvatar = await BandAvatar.find({}, { __v: 0 })
+    if (bandAvatar) {
+      return res.status(200).json({ bandAvatar })
+    } else {
+      return res.status(422).send('Error getting band avatar')
     }
   } catch (error) {
     res.status(500).send(error)
