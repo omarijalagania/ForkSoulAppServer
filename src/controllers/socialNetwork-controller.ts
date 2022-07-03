@@ -1,4 +1,5 @@
 import { Request, Response } from 'express'
+import mongoose from 'mongoose'
 import { SocialNetwork } from '../models'
 
 import { validateSocialNetwork } from '../schema'
@@ -37,6 +38,9 @@ export const getSocialNetworks = async (_: Request, res: Response) => {
 }
 
 export const getOneSocialNetwork = async (req: Request, res: Response) => {
+  if (!mongoose.Types.ObjectId.isValid(req.params.networkId)) {
+    return res.status(422).send('Invalid networkId')
+  }
   try {
     const socialNetwork = await SocialNetwork.find(
       { _id: req.params.networkId },
@@ -53,6 +57,9 @@ export const getOneSocialNetwork = async (req: Request, res: Response) => {
 }
 
 export const editSocialNetwork = async (req: Request, res: Response) => {
+  if (!mongoose.Types.ObjectId.isValid(req.params.socialId)) {
+    return res.status(422).send('Invalid socialId')
+  }
   const { error } = validateSocialNetwork(req.body)
 
   if (error) {

@@ -1,6 +1,7 @@
 import { Request, Response } from 'express'
 import { validateBandMember } from '../schema'
 import { BandMember } from '../models'
+import mongoose from 'mongoose'
 
 export const addBandMember = async (req: Request, res: Response) => {
   const { error } = validateBandMember(req.body)
@@ -51,6 +52,10 @@ export const getBandMembers = async (_: Request, res: Response) => {
 }
 
 export const getOneBandMember = async (req: Request, res: Response) => {
+  if (!mongoose.Types.ObjectId.isValid(req.params.memberId)) {
+    return res.status(422).send('Invalid memberId')
+  }
+
   try {
     const bandMembers = await BandMember.find(
       { _id: req.params.memberId },
@@ -67,11 +72,16 @@ export const getOneBandMember = async (req: Request, res: Response) => {
 }
 
 export const editBandMember = async (req: Request, res: Response) => {
+  if (!mongoose.Types.ObjectId.isValid(req.params.memberId)) {
+    return res.status(422).send('Invalid memberId')
+  }
+
   const { error } = validateBandMember(req.body)
 
   if (error) {
     return res.status(422).send(error.details[0].message)
   }
+
   try {
     const bandMember = await BandMember.updateOne(
       {
@@ -98,6 +108,9 @@ export const editBandMember = async (req: Request, res: Response) => {
 }
 
 export const deleteBandMember = async (req: Request, res: Response) => {
+  if (!mongoose.Types.ObjectId.isValid(req.params.memberId)) {
+    return res.status(422).send('Invalid memberId')
+  }
   try {
     const bandMember = await BandMember.deleteOne({ _id: req.params.memberId })
     if (bandMember) {

@@ -3,6 +3,9 @@ import mongoose from 'mongoose'
 import { Upload, SocialUpload, BandAvatar } from '../models'
 
 export const avatarUpload = async (req: Request, res: Response) => {
+  if (!mongoose.Types.ObjectId.isValid(req.params.memberId)) {
+    return res.status(422).send('Invalid memberId')
+  }
   let avatar = req.file
   if (!avatar) {
     return res.status(422).send('No image found')
@@ -44,6 +47,9 @@ export const avatarUpload = async (req: Request, res: Response) => {
 
 export const getAvatars = async (req: Request, res: Response) => {
   const memberId = req.params.memberId
+  if (!mongoose.Types.ObjectId.isValid(memberId)) {
+    return res.status(422).send('Invalid memberId')
+  }
   try {
     const avatars = await Upload.find({ memberId: memberId })
     if (avatars) {
@@ -57,6 +63,9 @@ export const getAvatars = async (req: Request, res: Response) => {
 }
 
 export const socialAvatarUpload = async (req: Request, res: Response) => {
+  if (!mongoose.Types.ObjectId.isValid(req.params.memberId)) {
+    return res.status(422).send('Invalid memberId')
+  }
   let socialAvatar = req.file
   if (!socialAvatar) {
     return res.status(422).send('No image found')
@@ -102,6 +111,9 @@ export const socialAvatarUpload = async (req: Request, res: Response) => {
 
 export const getSocialAvatars = async (req: Request, res: Response) => {
   const memberId = req.params.memberId
+  if (!mongoose.Types.ObjectId.isValid(memberId)) {
+    return res.status(422).send('Invalid memberId')
+  }
   try {
     const socialAvatar = await SocialUpload.find({ memberId: memberId })
     if (socialAvatar) {
@@ -117,7 +129,9 @@ export const getSocialAvatars = async (req: Request, res: Response) => {
 export const bandAvatarUpload = async (req: Request, res: Response) => {
   let bandAvatar = req.file
   let bandId = req.params.bandId
-
+  if (!mongoose.Types.ObjectId.isValid(req.params.bandId)) {
+    return res.status(422).send('Invalid bandId')
+  }
   if (!bandAvatar) {
     return res.status(422).send('No image found')
   }
