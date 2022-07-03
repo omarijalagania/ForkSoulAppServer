@@ -29,7 +29,17 @@ export const addBandMember = async (req: Request, res: Response) => {
 
 export const getBandMembers = async (_: Request, res: Response) => {
   try {
-    const bandMembers = await BandMember.find({}, { __v: 0 })
+    const bandMembers = await BandMember.aggregate([
+      {
+        $lookup: {
+          from: 'uploads',
+          localField: '_id',
+          foreignField: 'memberId',
+          as: 'uploads',
+        },
+      },
+      { $project: { __v: 0 } },
+    ])
     if (!bandMembers) {
       res.status(404).send([])
     } else {
