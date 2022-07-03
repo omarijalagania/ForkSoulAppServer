@@ -14,7 +14,6 @@ export const addSocialNetwork = async (req: Request, res: Response) => {
   try {
     const socialNetwork = await SocialNetwork.create({
       name: req.body.name,
-      socialLink: req.body.socialLink,
       socialUrl: req.body.socialUrl,
     })
     if (!socialNetwork) {
@@ -38,12 +37,12 @@ export const getSocialNetworks = async (_: Request, res: Response) => {
 }
 
 export const getOneSocialNetwork = async (req: Request, res: Response) => {
-  if (!mongoose.Types.ObjectId.isValid(req.params.networkId)) {
-    return res.status(422).send('Invalid networkId')
+  if (!mongoose.Types.ObjectId.isValid(req.params.socialId)) {
+    return res.status(422).send('Invalid socialId')
   }
   try {
     const socialNetwork = await SocialNetwork.find(
-      { _id: req.params.networkId },
+      { _id: req.params.socialId },
       { __v: 0 }
     )
     if (!socialNetwork) {
@@ -88,6 +87,9 @@ export const editSocialNetwork = async (req: Request, res: Response) => {
 }
 
 export const deleteSocialNetwork = async (req: Request, res: Response) => {
+  if (!mongoose.Types.ObjectId.isValid(req.params.socialId)) {
+    return res.status(422).send('Invalid socialId')
+  }
   try {
     const socialNetwork = await SocialNetwork.deleteOne({
       _id: req.params.socialId,

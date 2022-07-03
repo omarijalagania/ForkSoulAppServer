@@ -22,7 +22,7 @@ export const addBandMember = async (req: Request, res: Response) => {
     if (!bandMember) {
       return res.status(422).send('Error adding band member')
     }
-    res.status(201).json({ message: 'band added' })
+    res.status(201).json({ message: 'Band member added' })
   } catch (error) {
     res.status(500).send(error)
   }

@@ -5,11 +5,12 @@ info:
   version: 1.0.0
 
 servers:
+  - url: http://localhost:4000/
+    description: local server
+
   - url: https://employee-companies-api.omar.redberryinternship.ge/
     description: production server
 
-  - url: http://localhost:4000/
-    description: local server
 components:
   securitySchemes:
     bearerAuth:
@@ -27,14 +28,14 @@ paths:
           application/json:
             schema:
               properties:
-                email:
+                user_name:
                   type: string
                   required: true
                 password:
                   type: string
                   required: true
               example:
-                email: test@gmail.com
+                user_name: omari32
                 password: '1234'
       responses:
         '200':
@@ -43,7 +44,7 @@ paths:
             application/json:
               schema:
                 properties:
-                  email:
+                  user_name:
                     type: string
                     required: true
                   password:
@@ -53,10 +54,10 @@ paths:
                 example:
                   token: 'sfjririowejfisjfjseifjsejfesij'
 
-  /company/add:
+  /band/add:
     post:
       tags:
-        - Company
+        - Band Members
       security:
         - bearerAuth: []
 
@@ -68,411 +69,334 @@ paths:
                 name:
                   type: string
                   required: true
-                website:
-                  type: string
-                  required: true
-                logo:
-                  type: string
-                  required: true
-                date:
-                  type: string
-                  required: true
-              example:
-                name: redberry
-                website: redberry.ge
-                logo: https://some-website/logo.png
-                date: 12-05-2014
-      responses:
-        '200':
-          description: Add company.
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    name:
-                      type: string
-                      required: true
-                    website:
-                      type: string
-                      required: true
-                    logo:
-                      type: string
-                      required: true
-                    date:
-                      type: string
-                      required: true
-
-                  example:
-                    name: redberry
-                    website: redberry.ge
-                    logo: https://some-website/logo.png
-                    date: 12-05-2014
-
-  /company/get:
-    get:
-      tags:
-        - Company
-      security:
-        - bearerAuth: []
-      responses:
-        '200':
-          description: get Company
-          content:
-            application/json:
-              schema:
-                properties:
-                  name:
-                    type: string
-                    required: true
-                  website:
-                    type: string
-                    required: true
-                  logo:
-                    type: string
-                    required: true
-                  date:
-                    type: string
-                    required: true
-
-                example:
-                  'company':
-                    [
-                      {
-                        '_id': '62b07792da893d093c5746c1',
-                        'name': 'redberry',
-                        'website': 'redberry-edited.ge',
-                        'logo': 'https://some-website/logo2.png',
-                        'date': '12-05-2013',
-                      },
-                    ]
-
-  /company/get/{companyId}:
-    get:
-      summary: Get a company by ID
-      parameters:
-        - in: path
-          name: companyId
-          schema:
-            type: string
-          required: true
-          description: Detailed info about company
-      tags:
-        - Company
-      security:
-        - bearerAuth: []
-      responses:
-        '200':
-          description: get Company.
-          content:
-            application/json:
-              schema:
-                properties:
-                  name:
-                    type: string
-                    required: true
-                  website:
-                    type: string
-                    required: true
-                  logo:
-                    type: string
-                    required: true
-                  date:
-                    type: string
-                    required: true
-
-                example:
-                  company:
-                    _id: 62a45fc83427dd469643e079
-                    name: redberry
-                    website: www.redberry.ge
-                    logo: http://some.logo.png
-                    date: 12/24/2004
-
-                  employees:
-                    - _id: 62a45fcf3427dd469643e07d
-                      name: John
-                      last_name: Doe
-                      company_name: redberry
-                      start_work_date: 12-25-2022
-                      born_date: 12-25-1989
-                      id_number: 4434354
-                      position: intern React Developer
-                      companyId: 62a45fc83427dd469643e079
-
-  /company/delete/{companyId}:
-    delete:
-      summary: Delete a company by ID
-      parameters:
-        - in: path
-          name: companyId
-          schema:
-            type: string
-          required: true
-          description: Delete company with id
-      tags:
-        - Company
-      security:
-        - bearerAuth: []
-      responses:
-        '200':
-          description: Delete company
-          content:
-            application/json:
-              schema:
-                properties:
-                  message:
-                    type: string
-
-                example:
-                  message: Company deleted
-
-  /company/edit/{companyId}:
-    patch:
-      summary: Edit company by ID
-      parameters:
-        - in: path
-          name: companyId
-          schema:
-            type: string
-          required: true
-          description: Edit company info with id
-
-      tags:
-        - Company
-      security:
-        - bearerAuth: []
-      requestBody:
-        content:
-          application/json:
-            schema:
-              properties:
-                name:
-                  type: string
-
-                website:
-                  type: string
-
-                logo:
-                  type: string
-
-                date:
-                  type: string
-              example:
-                name: redberry
-                website: redberry-edited.ge
-                logo: https://some-website/logo2.png
-                date: 12-05-2013
-      responses:
-        '200':
-          description: edit Company.
-          content:
-            application/json:
-              schema:
-                properties:
-                  message:
-                    type: string
-
-                example:
-                  message: 'Company Updated'
-
-  /employee/add:
-    post:
-      tags:
-        - Employee
-      security:
-        - bearerAuth: []
-      requestBody:
-        content:
-          application/json:
-            schema:
-              properties:
-                name:
-                  type: string
-                  required: true
-                last_name:
-                  type: string
-                  required: true
-                start_work_date:
-                  type: string
-                  required: true
-                born_date:
-                  type: string
-                  required: true
-                id_number:
+                instrument:
                   type: number
                   required: true
-                position:
+                orbitLength:
                   type: string
                   required: true
-                companyId:
+                color:
+                  type: string
+                  required: true
+                biography:
                   type: string
                   required: true
               example:
-                name: gela
-                last_name: geladze
-                start_work_date: 12-05-2016
-                born_date: 4-09-1990
-                id_number: 60004344334
-                position: Developer
-                companyId: 'erw4rrwerwer42323esfs'
+                name: ბექა
+                instrument: გიტარა
+                orbitLength: 300
+                color: '#ffffff'
+                biography: ბიოგრაფია
+      responses:
+        '201':
+          description: Band Member Added.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    required: true
+
+                example:
+                  message: Band member added
+
+  /band/get:
+    get:
+      tags:
+        - Band Members
+      security:
+        - bearerAuth: []
       responses:
         '200':
-          description: Add employee
+          description: Get Members
           content:
             application/json:
               schema:
                 properties:
-                  name:
-                    type: string
-                    required: true
-                  last_name:
-                    type: string
-                    required: true
-                  company_name:
-                    type: string
-                    required: true
-                  start_work_date:
-                    type: string
-                    required: true
-                  born_date:
-                    type: string
-                    required: true
-                  id_number:
-                    type: number
-                    required: true
-                  position:
-                    type: string
-                    required: true
+                name:
+                  type: string
+                  required: true
+                instrument:
+                  type: number
+                  required: true
+                orbitLength:
+                  type: string
+                  required: true
+                color:
+                  type: string
+                  required: true
+                biography:
+                  type: string
+                  required: true
                 example:
-                  employee:
+                  [
                     {
-                      name: 'gela',
-                      last_name: 'geladze',
-                      start_work_date: '12-05-2016',
-                      born_date: '4-09-1990',
-                      id_number: 600000009999,
-                      position: 'Developer',
-                      companyId: '62b0a3811b371313a24d055a',
-                    }
+                      '_id': '62b07792da893d093c5746c1',
+                      'name': 'გედფდფ',
+                      'instrument': 'ფანდური',
+                      'orbitLength': 400,
+                      'color': '#ffffff',
+                      'biography': 'ფანდურა',
+                      'uploads':
+                        [
+                          {
+                            '_id': '62c19213ee129f5e98f5d82f',
+                            'avatar': '/images/avatar-unnamed.jpeg',
+                            'memberId': '62bc05ecb344f9cc27aa74c8',
+                            '__v': 0,
+                          },
+                        ],
+                    },
+                  ]
 
-  /employee/get:
+  /band/get-one/{memberId}:
     get:
-      tags:
-        - Employee
-      security:
-        - bearerAuth: []
-      responses:
-        '200':
-          description: Get employees
-          content:
-            application/json:
-              schema:
-                properties:
-                  name:
-                    type: string
-                    required: true
-                  last_name:
-                    type: string
-                    required: true
-                  company_name:
-                    type: string
-                    required: true
-                  start_work_date:
-                    type: string
-                    required: true
-                  born_date:
-                    type: string
-                    required: true
-                  id_number:
-                    type: number
-                    required: true
-                  position:
-                    type: string
-                    required: true
-
-                example:
-                  name: gela
-                  last_name: geladze
-                  company_name: websmart
-                  start_work_date: 12-05-2016
-                  born_date: 4-09-1990
-                  id_number: 60004344334
-                  position: Developer
-                  companyId: '62b0a3d11b371313a24d0562'
-
-  /employee/get/{employeeId}:
-    get:
-      summary: Get employee by ID
+      summary: Get band member by ID
       parameters:
         - in: path
-          name: employeeId
+          name: memberId
           schema:
             type: string
           required: true
-          description: Get employee by ID
+          description: Detailed info about band member
       tags:
-        - Employee
+        - Band Members
       security:
         - bearerAuth: []
       responses:
         '200':
-          description: Get employee
+          description: get band member
           content:
             application/json:
               schema:
                 properties:
-                  name:
-                    type: string
-                    required: true
-                  last_name:
-                    type: string
-                    required: true
-                  company_name:
-                    type: string
-                    required: true
-                  start_work_date:
-                    type: string
-                    required: true
-                  born_date:
-                    type: string
-                    required: true
-                  id_number:
-                    type: number
-                    required: true
-                  position:
-                    type: string
-                    required: true
+                name:
+                  type: string
+                  required: true
+                instrument:
+                  type: number
+                  required: true
+                orbitLength:
+                  type: string
+                  required: true
+                color:
+                  type: string
+                  required: true
+                biography:
+                  type: string
+                  required: true
 
                 example:
-                  'employee':
-                    [
-                      {
-                        '_id': '62b0a4281b371313a24d0567',
-                        'name': 'bela',
-                        'last_name': 'beladze',
-                        'start_work_date': '12-05-2016',
-                        'born_date': '4-09-1990',
-                        'id_number': 60001112020,
-                        'position': 'Developer',
-                        'companyId': '62b0a3d11b371313a24d0562',
-                      },
-                    ]
+                  [
+                    {
+                      '_id': '62bc25da01e98829b31c0452',
+                      'name': 'ჯგუფი',
+                      'instrument': 'ჯგუფის',
+                      'orbitLength': 300,
+                      'color': '#ffffff',
+                      'biography': 'ჯგუფის',
+                    },
+                  ]
 
-  /employee/delete/{employeeId}:
+  /band/delete/{memberId}:
     delete:
-      summary: Delete employee by ID
+      summary: Delete band member by ID
       parameters:
         - in: path
-          name: employeeId
+          name: memberId
           schema:
             type: string
           required: true
-          description: Delete employee by ID
+          description: Delete band member with id
       tags:
-        - Employee
+        - Band Members
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Delete band member
+          content:
+            application/json:
+              schema:
+                properties:
+                  message:
+                    type: string
+
+                example:
+                  message: Band member deleted
+
+  /band/edit/{memberId}:
+    put:
+      summary: Edit band member by ID
+      parameters:
+        - in: path
+          name: memberId
+          schema:
+            type: string
+          required: true
+          description: Edit band member by ID
+
+      tags:
+        - Band Members
+      security:
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+              name:
+                type: string
+                required: true
+              instrument:
+                type: number
+                required: true
+              orbitLength:
+                type: string
+                required: true
+              color:
+                type: string
+                required: true
+              biography:
+                type: string
+                required: true
+            example:
+              {
+                'name': 'დათო',
+                'instrument': 'დოლი',
+                'orbitLength': 200,
+                'color': '#ffffff',
+                'biography': 'ბიოგრაფია',
+              }
+
+      responses:
+        '200':
+          description: edit band member.
+          content:
+            application/json:
+              schema:
+                properties:
+                  message:
+                    type: string
+
+                example:
+                  message: Band member updated
+
+  /social-network/add:
+    post:
+      tags:
+        - Social Links
+      security:
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                name:
+                  type: string
+                  required: true
+                socialUrl:
+                  type: string
+                  required: true
+
+              example:
+                name: YouTube
+                socialUrl: http://youtube.com
+      responses:
+        '201':
+          description: Add social link
+          content:
+            application/json:
+              schema:
+              properties:
+                name:
+                  type: string
+                  required: true
+                socialUrl:
+                  type: string
+                  required: true
+
+              example:
+                message: 'Social network added'
+
+  /social-network/get:
+    get:
+      tags:
+        - Social Links
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Get social links
+          content:
+            application/json:
+              schema:
+              properties:
+                name:
+                  type: string
+                  required: true
+                socialUrl:
+                  type: string
+                  required: true
+
+              example:
+                [
+                  {
+                    '_id': '62c09aef675115d9e4f32d87',
+                    'name': 'Twitter',
+                    'socialUrl': 'https://twitter.com',
+                  },
+                ]
+
+  /social-network/get-one/{socialId}:
+    get:
+      summary: Get social link by ID
+      parameters:
+        - in: path
+          name: socialId
+          schema:
+            type: string
+          required: true
+          description: Get social link by ID
+      tags:
+        - Social Links
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Get social link
+          content:
+            application/json:
+              schema:
+                properties:
+                  name:
+                    type: string
+                    required: true
+                  socialUrl:
+                    type: string
+                    required: true
+
+                example:
+                  [
+                    {
+                      '_id': '62c1dcbf13c8180d9f87ee30',
+                      'name': 'Reddit',
+                      'socialUrl': 'http://reddit.com',
+                    },
+                  ]
+
+  /social-network/delete/{socialId}:
+    delete:
+      summary: Delete social link by ID
+      parameters:
+        - in: path
+          name: socialId
+          description: Delete social link by ID
+      tags:
+        - Social Links
       security:
         - bearerAuth: []
       responses:
@@ -486,20 +410,20 @@ paths:
                     type: string
 
                 example:
-                  message: Employee deleted
+                  message: Social network deleted
 
-  /employee/edit/{employeeId}:
-    patch:
-      summary: Edit employee by ID
+  /social-network/edit/{socialId}:
+    put:
+      summary: Edit social link by ID
       parameters:
         - in: path
-          name: employeeId
+          name: socialId
           schema:
             type: string
           required: true
-          description: Edit employee by ID
+          description: Edit social link by ID
       tags:
-        - Employee
+        - Social Links
       security:
         - bearerAuth: []
 
@@ -510,26 +434,14 @@ paths:
               properties:
                 name:
                   type: string
-                last_name:
-                  type: string
-                start_work_date:
-                  type: string
-                born_date:
-                  type: string
-                id_number:
-                  type: number
-                position:
+                SocialUrl:
                   type: string
               example:
-                name: Gela
-                last_name: geladze
-                start_work_date: 12-05-2016
-                born_date: 4-09-1990
-                id_number: 60004344334
-                position: Middle Developer
+                name: Twitter
+                socialUrl: http://twitter.com
       responses:
         '200':
-          description: Edit employee
+          description: Edit social link
           content:
             application/json:
               schema:
@@ -538,4 +450,90 @@ paths:
                     type: string
 
                 example:
-                  message: Employee edited
+                  message: Social network updated
+
+  /band-info/get:
+    get:
+      tags:
+        - Band Info
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Get band info
+          content:
+            application/json:
+              schema:
+                properties:
+                  text:
+                    type: string
+                    required: true
+                example:
+                  {
+                    '_id': '62bef01763c893d57e4e83c7',
+                    'text': 'დაწყვილების პერიოდი ზომიერ და არქტიკულ რეგიონებში მობინადრე დათვებისთვის, ჩვეულებრივ, გაზაფხულია. მაკეობა ხანმოკლეა, თუმცა იმის გამო, რომ დათვი არ მშობიარობს მანამ, სანამ ზამთრის შუა ძილში არ იქნება, განაყოფიერებული კვერცხუჯრედის საშვილოსნოში იმპლანტაცია ხდება მხოლოდ ოქტომბე-ნოემბერში',
+                  }
+
+  /band-info/update:
+    put:
+      tags:
+        - Band Info
+      security:
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              properties:
+                text:
+                  type: string
+
+              example:
+                text: "დაწყვილების პერიოდი ზომიერ და არქტიკულ რეგიონებში მობინადრე დათვებისთვის, ჩვეულებრივ, გაზაფხულია. მაკეობა ხანმოკლეა, თუმცა იმის გამო, რომ დათვი არ მშობიარობს მანამ, სანამ ზამთრის შუა ძილში არ იქნება, განაყოფიერებული კვერცხუჯრედის საშვილოსნოში იმპლანტაცია ხდება მხოლოდ ოქტომბე-ნოემბერში, ამ პროცესს „დაგვიანებული იმპლანტაცია“ ეწოდება.\n\nდათვი შობს წარმოუდგენლად პატარა ბელებს, ხშირ შემთხვევაში — ორს. ახალშობილები მხოლოდ 200-700 გრამს იწონიან და ძალიან ჰგვანან პატარა ვირთხებს. ისინი თვალაუხელელნი, უკბილონი და ბეწვის გარეშე იბადებიან. პატარები რჩებიან რა ბუნაგში დედასთან, მისი ნოყიერი რძით იკვებებიან და სწრაფად იზრდებიან. როდესაც გაზაფხულზე ისინი ბარბაცით გამოდიან ბუნაგიდან და მზეს ეფიცხებიან, უკვე მოზრდილები არიან\nდათვები, როგორც წესი, ეულად ბინადრობენ, თუმცა საკვების მოპოვების დროს ხშირად იკრიბებიან. ბელები ორი-სამი წლის განმავლობაში დედასთან რჩებიან. ამ პერიოდში მდედრი დათვი კიდევ მაკეობს, ამგვარად, მამრი დათვებიც ცხოვრების რაღაც ნაწილს ნაშიერებთან ატარებენ.საუკუნეების განმავლობაში დათვების ყველა სახეობაზე ნადირობდნენ. გამოსადეგია დათვის ხორცი, ტყავი, ცხიმი, მათ აბარებე ზოოპარკებში ან უბრალოდ სპორტული ინტერესის გამო ნადირობდნენ მათზე.\n"
+
+      responses:
+        '200':
+          description: Edit social link
+          content:
+            application/json:
+              schema:
+                properties:
+                  message:
+                    type: string
+
+                example:
+                  message: Band info updated
+
+  /avatar/upload/{memberId}:
+    post:
+      parameters:
+        - in: path
+          name: memberId
+          schema:
+            type: string
+          required: true
+          description: upload member avatar
+      tags:
+        - Uploads
+      security:
+        - bearerAuth: []
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                avatar:
+                  type: string
+                  format: binary
+      responses:
+        '200':
+          description: update member avatar
+          content:
+            application/json:
+              schema:
+                properties:
+                  fileName:
+                    type: string
+                    format: binary
+                example: { 'message': 'Avatar updated' }

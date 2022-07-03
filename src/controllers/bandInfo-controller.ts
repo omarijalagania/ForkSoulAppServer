@@ -24,6 +24,6 @@ export const updateBandInfo = async (req: Request, res: Response) => {
     if (!bandInfo) {
       return res.status(422).send('Error update band info')
     }
-    res.status(201).json({ message: 'Band info updated' })
+    res.status(200).json({ message: 'Band info updated' })
   } catch (error) {}
 }

@@ -12,6 +12,7 @@ import {
   UploadRouter,
   BandInfoRouter,
 } from './routes'
+import { swaggerMiddleware } from './middlewares'
 
 const app = express()
 app.use(express.json())
@@ -27,6 +28,8 @@ app.use('/band', BandRouter)
 app.use('/band-info', BandInfoRouter)
 app.use('/social-network', SocialNetworkRouter)
 app.use('/', upload.single('avatar'), UploadRouter)
+//@ts-ignore
+app.use('/api-docs', swaggerMiddleware())
 
 app.listen(process.env.PORT || '4400', () => {
   console.log(

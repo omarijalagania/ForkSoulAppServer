@@ -6,7 +6,7 @@ const swaggerMiddleware = () => {
   return [
     SwaggerUI.serve,
     SwaggerUI.setup(swaggerDocument, {
-      customSiteTitle: 'Company Dashboard API',
+      customSiteTitle: 'Band API',
     }),
   ]
 }
