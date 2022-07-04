@@ -1,7 +1,7 @@
 openapi: 3.0.0
 info:
-  title: Company Dashboard
-  description: view, add, edit and remove companies and employees
+  title: Music Band Dashboard
+  description: Music Band Control Panel
   version: 1.0.0
 
 servers:
@@ -100,7 +100,49 @@ paths:
                     required: true
 
                 example:
-                  message: Band member added
+                  message: Band member add
+
+  /avatar/upload/{memberId}:
+    post:
+      parameters:
+        - in: path
+          name: memberId
+          schema:
+            type: string
+          required: true
+          description: upload member avatar
+      tags:
+        - Band Members
+      security:
+        - bearerAuth: []
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                avatar:
+                  type: string
+                  format: binary
+      responses:
+        '200':
+          description: update member avatar
+          content:
+            application/json:
+              schema:
+                properties:
+                  fileName:
+                    type: string
+                    format: binary
+                example:
+                  {
+                    'uploaded':
+                      {
+                        'avatar': '/images/avatar-unnamed.jpeg',
+                        'memberId': '62c1486f1cb1d71283300c8a',
+                        '_id': '62c226418a53eac8b8b25695',
+                      },
+                  }
 
   /band/get:
     get:
@@ -199,6 +241,44 @@ paths:
                       'biography': 'ჯგუფის',
                     },
                   ]
+
+  /avatar/get/{memberId}:
+    get:
+      summary: Get band avatar member by ID
+      parameters:
+        - in: path
+          name: memberId
+          schema:
+            type: string
+          required: true
+          description: band member avatar
+      tags:
+        - Band Members
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: get band member avatar
+          content:
+            application/json:
+              schema:
+                properties:
+                avatar:
+                  type: string
+                  required: true
+                memberId:
+                  type: number
+                example:
+                  {
+                    'avatars':
+                      [
+                        {
+                          '_id': '62c2270f19a2429180124a13',
+                          'avatar': '/images/avatar-Joker-trailer-28.png',
+                          'memberId': '62c1c9428ac6cb867adf5482',
+                        },
+                      ],
+                  }
 
   /band/delete/{memberId}:
     delete:
@@ -322,6 +402,49 @@ paths:
               example:
                 message: 'Social network added'
 
+  /social-avatar/upload/{memberId}:
+    post:
+      parameters:
+        - in: path
+          name: memberId
+          schema:
+            type: string
+          required: true
+          description: upload social link avatar
+      tags:
+        - Social Links
+      security:
+        - bearerAuth: []
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                avatar:
+                  type: string
+                  format: binary
+      responses:
+        '200':
+          description: update social link avatar
+          content:
+            application/json:
+              schema:
+                properties:
+                  fileName:
+                    type: string
+                    format: binary
+                example:
+                  {
+                    'message': 'Social avatar updated',
+                    'uploaded':
+                      {
+                        'socialAvatar': '/images/avatar-deer_art_vector_134088_2560x1600.jpeg',
+                        'memberId': '62c1c9428ac6cb867adf5482',
+                        '_id': '62c22a1014f6088078709873',
+                      },
+                  }
+
   /social-network/get:
     get:
       tags:
@@ -387,6 +510,43 @@ paths:
                       'socialUrl': 'http://reddit.com',
                     },
                   ]
+  /social-avatar/get/{memberId}:
+    get:
+      summary: Get social link avatar by ID
+      parameters:
+        - in: path
+          name: memberId
+          schema:
+            type: string
+          required: true
+          description: Get social link avatar by ID
+      tags:
+        - Social Links
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Get social link avatar by ID
+          content:
+            application/json:
+              schema:
+                properties:
+                avatar:
+                  type: string
+                  required: true
+                memberId:
+                  type: number
+                example:
+                  {
+                    'socialAvatar':
+                      [
+                        {
+                          '_id': '62c22a1014f6088078709873',
+                          'socialAvatar': '/images/avatar-EQc8iWoU4AE85OE.jpeg',
+                          'memberId': '62c1c9428ac6cb867adf5482',
+                        },
+                      ],
+                  }
 
   /social-network/delete/{socialId}:
     delete:
@@ -504,17 +664,17 @@ paths:
                 example:
                   message: Band info updated
 
-  /avatar/upload/{memberId}:
+  /band-avatar/upload/{bandId}:
     post:
       parameters:
         - in: path
-          name: memberId
+          name: bandId
           schema:
             type: string
           required: true
-          description: upload member avatar
+          description: upload band avatar
       tags:
-        - Uploads
+        - Band Info
       security:
         - bearerAuth: []
       requestBody:
@@ -528,7 +688,7 @@ paths:
                   format: binary
       responses:
         '200':
-          description: update member avatar
+          description: update band avatar
           content:
             application/json:
               schema:
@@ -536,4 +696,51 @@ paths:
                   fileName:
                     type: string
                     format: binary
-                example: { 'message': 'Avatar updated' }
+                example:
+                  {
+                    'message': 'Band avatar updated',
+                    'uploaded':
+                      {
+                        'bandAvatar': '/images/avatar-deer_art_vector_134088_2560x1600.jpeg',
+                        'bandId': '62c1c9428ac6cb867adf5482',
+                        '_id': '62c22e0e7f51bc5f5056947c',
+                      },
+                  }
+
+  /band-avatar/get/{bandId}:
+    get:
+      summary: Get band avatar by ID
+      parameters:
+        - in: path
+          name: memberId
+          schema:
+            type: string
+          required: true
+          description: Get band avatar by ID
+      tags:
+        - Band Info
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Get band avatar by ID
+          content:
+            application/json:
+              schema:
+                properties:
+                bandAvatar:
+                  type: string
+                  required: true
+                bandId:
+                  type: number
+                example:
+                  {
+                    'bandAvatar':
+                      [
+                        {
+                          '_id': '62c22e0e7f51bc5f5056947c',
+                          'bandAvatar': '/images/avatar-unnamed.jpeg',
+                          'bandId': '62c1c9428ac6cb867adf5482',
+                        },
+                      ],
+                  }

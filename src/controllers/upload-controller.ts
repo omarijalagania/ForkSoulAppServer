@@ -22,7 +22,7 @@ export const avatarUpload = async (req: Request, res: Response) => {
       if (!updateExisting) {
         return res.status(422).send('Error updating avatar')
       }
-      return res.status(200).json({ message: 'Avatar updated' })
+      return res.status(200).json({ uploaded: updateExisting })
     }
 
     const avatarUpload = await Upload.create({
@@ -51,7 +51,7 @@ export const getAvatars = async (req: Request, res: Response) => {
     return res.status(422).send('Invalid memberId')
   }
   try {
-    const avatars = await Upload.find({ memberId: memberId })
+    const avatars = await Upload.find({ memberId: memberId }, { __v: 0 })
     if (avatars) {
       return res.status(200).json({ avatars })
     } else {
@@ -84,7 +84,14 @@ export const socialAvatarUpload = async (req: Request, res: Response) => {
       if (!updateExisting) {
         return res.status(422).send('Error updating Social avatar')
       }
-      return res.status(200).json({ message: 'Social avatar updated' })
+      return res.status(200).json({
+        message: 'Social avatar updated',
+        uploaded: {
+          socialAvatar: updateExisting.socialAvatar,
+          memberId: updateExisting.memberId,
+          _id: updateExisting._id,
+        },
+      })
     }
 
     const avatarUpload = await SocialUpload.create({
@@ -115,7 +122,10 @@ export const getSocialAvatars = async (req: Request, res: Response) => {
     return res.status(422).send('Invalid memberId')
   }
   try {
-    const socialAvatar = await SocialUpload.find({ memberId: memberId })
+    const socialAvatar = await SocialUpload.find(
+      { memberId: memberId },
+      { __v: 0 }
+    )
     if (socialAvatar) {
       return res.status(200).json({ socialAvatar })
     } else {
@@ -150,7 +160,14 @@ export const bandAvatarUpload = async (req: Request, res: Response) => {
       if (!updateExisting) {
         return res.status(422).send('Error updating band avatar')
       }
-      return res.status(200).json({ message: 'Band avatar updated' })
+      return res.status(200).json({
+        message: 'Band avatar updated',
+        uploaded: {
+          bandAvatar: updateExisting.bandAvatar,
+          bandId: updateExisting.bandId,
+          _id: updateExisting._id,
+        },
+      })
     }
 
     const bandAvatarUpload = await BandAvatar.create({
