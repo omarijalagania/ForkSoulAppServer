@@ -8,7 +8,7 @@ servers:
   - url: http://localhost:4000/
     description: local server
 
-  - url: https://employee-companies-api.omar.redberryinternship.ge/
+  - url: https://inside-joke-api.omar.redberryinternship.ge/
     description: production server
 
 components:
