@@ -1,7 +1,7 @@
+import { Request, Response, NextFunction } from 'express'
 import jwt from 'jsonwebtoken'
 
-//@ts-ignore
-const authMiddleware = (req, res, next) => {
+const authMiddleware = (req: Request, res: Response, next: NextFunction) => {
   const { authorization } = req.headers
 
   if (!authorization) {
@@ -11,7 +11,7 @@ const authMiddleware = (req, res, next) => {
     if (!token) {
       res.status(403).send('empty token')
     }
-    //@ts-ignore
+
     const verified = jwt.verify(token, process.env.TOKEN_SECRET)
     if (verified) {
       next()

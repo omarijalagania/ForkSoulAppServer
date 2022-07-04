@@ -13,7 +13,7 @@ const validateBandMember = (data: BandMemberProps) => {
       .pattern(new RegExp('[Ⴀ-\u10fe]$'), 'Georgian only')
 
       .required(),
-    orbitLength: Joi.number().min(60).max(300).required(),
+    orbitLength: Joi.number().min(100).max(600).required(),
     color: Joi.string()
       .length(7)
       .pattern(

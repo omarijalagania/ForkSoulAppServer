@@ -72,7 +72,6 @@ export const editSocialNetwork = async (req: Request, res: Response) => {
       {
         $set: {
           name: req.body.name,
-          socialLink: req.body.socialLink,
           socialUrl: req.body.socialUrl,
         },
       }
