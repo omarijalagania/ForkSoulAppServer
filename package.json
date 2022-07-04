@@ -6,8 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "concurrently \"npm run build:watch\" \"nodemon build/server.js\"",
-    "user:create": "ts-node src/bin/create-user.ts",
-    "user:create-prod": "node build/bin/create-user.js",
+    "user:create": "node build/bin/create-user.js",
     "build": "tsc --project ./",
     "start": "node build/server.js",
     "build:watch": "babel src --out-dir build --extensions .ts --copy-files --watch",
