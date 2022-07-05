@@ -1,4 +1,4 @@
-import 'dotenv/config'
+import * as dotenv from 'dotenv'
 import express from 'express'
 import cors from 'cors'
 import path from 'path'
@@ -13,7 +13,7 @@ import {
   BandInfoRouter,
 } from './routes'
 import { swaggerMiddleware } from './middlewares'
-
+dotenv.config({ path: path.resolve(__dirname, '../.env') })
 const app = express()
 app.use(express.json())
 connectDB(false)
