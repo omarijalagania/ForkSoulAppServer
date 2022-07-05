@@ -188,7 +188,7 @@ export const bandAvatarUpload = async (req: Request, res: Response) => {
   }
 }
 
-export const getBandAvatar = async (req: Request, res: Response) => {
+export const getBandAvatar = async (_: Request, res: Response) => {
   try {
     const bandAvatar = await BandAvatar.find({}, { __v: 0 })
     if (bandAvatar) {

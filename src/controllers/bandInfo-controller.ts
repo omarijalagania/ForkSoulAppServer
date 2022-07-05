@@ -1,7 +1,7 @@
 import { Request, Response } from 'express'
 import { BandInfo } from '../models'
 
-export const getBandIfo = async (req: Request, res: Response) => {
+export const getBandIfo = async (_: Request, res: Response) => {
   try {
     const bandInfo = await BandInfo.aggregate([
       {
