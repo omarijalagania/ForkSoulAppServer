@@ -25,7 +25,17 @@ export const addSocialNetwork = async (req: Request, res: Response) => {
 
 export const getSocialNetworks = async (_: Request, res: Response) => {
   try {
-    const socialNetwork = await SocialNetwork.find({}, { __v: 0 })
+    const socialNetwork = await SocialNetwork.aggregate([
+      {
+        $lookup: {
+          from: 'socialuploads',
+          localField: '_id',
+          foreignField: 'memberId',
+          as: 'socialUploads',
+        },
+      },
+      { $project: { __v: 0 } },
+    ])
     if (!socialNetwork) {
       res.status(404).send([])
     } else {

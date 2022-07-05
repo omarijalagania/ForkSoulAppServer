@@ -3,7 +3,17 @@ import { BandInfo } from '../models'
 
 export const getBandIfo = async (req: Request, res: Response) => {
   try {
-    const bandInfo = await BandInfo.find({}, { __v: 0 })
+    const bandInfo = await BandInfo.aggregate([
+      {
+        $lookup: {
+          from: 'bandavatars',
+          localField: '_id',
+          foreignField: 'bandId',
+          as: 'bandAvatars',
+        },
+      },
+      { $project: { __v: 0 } },
+    ])
     if (!bandInfo) {
       res.status(404).send([])
     } else {
