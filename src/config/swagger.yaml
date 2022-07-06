@@ -471,6 +471,15 @@ paths:
                     '_id': '62c09aef675115d9e4f32d87',
                     'name': 'Twitter',
                     'socialUrl': 'https://twitter.com',
+                    'socialUploads':
+                      [
+                        {
+                          '_id': '62c09aef675115d9e4f32d87',
+                          'socialAvatar': '/images/avatar-digitization-g12e7f4df0_640.jpg',
+                          'memberId': '62c34b356fe228a6897c1348',
+                          '__v': 0,
+                        },
+                      ],
                   },
                 ]
 
@@ -632,6 +641,15 @@ paths:
                   {
                     '_id': '62bef01763c893d57e4e83c7',
                     'text': 'დაწყვილების პერიოდი ზომიერ და არქტიკულ რეგიონებში მობინადრე დათვებისთვის, ჩვეულებრივ, გაზაფხულია. მაკეობა ხანმოკლეა, თუმცა იმის გამო, რომ დათვი არ მშობიარობს მანამ, სანამ ზამთრის შუა ძილში არ იქნება, განაყოფიერებული კვერცხუჯრედის საშვილოსნოში იმპლანტაცია ხდება მხოლოდ ოქტომბე-ნოემბერში',
+                    'bandAvatars':
+                      [
+                        {
+                          '_id': '62c4bb0e30d9104b545ad76c',
+                          'bandAvatar': '/images/avatar-digitization-g12e7f4df0_640.jpg',
+                          'bandId': '62c34c0163b157643ada9f59',
+                          '__v': 0,
+                        },
+                      ],
                   }
 
   /band-info/update:

@@ -10,7 +10,7 @@
     "build": "tsc --project ./",
     "start": "node build/server.js",
     "build:watch": "babel src --out-dir build --extensions .ts --copy-files --watch",
-    "build:prod": "babel src --out-dir build --extensions .ts --copy-files"
+    "build:prod": "babel src --out-dir build --extensions .ts --copy-files --minified"
   },
   "keywords": [],
   "author": "",
