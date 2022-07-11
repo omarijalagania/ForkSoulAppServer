@@ -7,15 +7,19 @@ import {
   getBandAvatar,
 } from '../controllers'
 import express from 'express'
-
+import { authMiddleware } from '../middlewares'
 const router = express.Router()
 
-router.post('/avatar/upload/:memberId', avatarUpload)
-router.post('/social-avatar/upload/:memberId', socialAvatarUpload)
-router.post('/band-avatar/upload/:bandId', bandAvatarUpload)
+router.post('/avatar/upload/:memberId', authMiddleware, avatarUpload)
+router.post(
+  '/social-avatar/upload/:memberId',
+  authMiddleware,
+  socialAvatarUpload
+)
+router.post('/band-avatar/upload/:bandId', authMiddleware, bandAvatarUpload)
 
-router.get('/social-avatar/get/:memberId', getSocialAvatars)
-router.get('/avatar/get/:memberId', getAvatars)
-router.get('/band-avatar/get/:bandId', getBandAvatar)
+router.get('/social-avatar/get/:memberId', authMiddleware, getSocialAvatars)
+router.get('/avatar/get/:memberId', authMiddleware, getAvatars)
+router.get('/band-avatar/get/:bandId', authMiddleware, getBandAvatar)
 
 export default router
