@@ -12,7 +12,7 @@ import {
   UploadRouter,
   BandInfoRouter,
 } from './routes'
-import { swaggerMiddleware } from './middlewares'
+import { authMiddleware, swaggerMiddleware } from './middlewares'
 dotenv.config({ path: path.resolve(__dirname, '../.env') })
 const app = express()
 app.use(express.json())

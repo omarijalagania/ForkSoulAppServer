@@ -8,7 +8,7 @@ servers:
   - url: https://folksoul-api.omar.redberryinternship.ge/
     description: production server
 
-  - url: http://localhost:4444/
+  - url: http://localhost:4242/
     description: local server
 
 components:
@@ -148,8 +148,6 @@ paths:
     get:
       tags:
         - Band Members
-      security:
-        - bearerAuth: []
       responses:
         '200':
           description: Get Members
@@ -187,7 +185,6 @@ paths:
                             '_id': '62c19213ee129f5e98f5d82f',
                             'avatar': '/images/avatar-unnamed.jpeg',
                             'memberId': '62bc05ecb344f9cc27aa74c8',
-                            '__v': 0,
                           },
                         ],
                     },
@@ -449,8 +446,6 @@ paths:
     get:
       tags:
         - Social Links
-      security:
-        - bearerAuth: []
       responses:
         '200':
           description: Get social links
@@ -477,7 +472,6 @@ paths:
                           '_id': '62c09aef675115d9e4f32d87',
                           'socialAvatar': '/images/avatar-digitization-g12e7f4df0_640.jpg',
                           'memberId': '62c34b356fe228a6897c1348',
-                          '__v': 0,
                         },
                       ],
                   },
@@ -625,8 +619,6 @@ paths:
     get:
       tags:
         - Band Info
-      security:
-        - bearerAuth: []
       responses:
         '200':
           description: Get band info
@@ -647,7 +639,6 @@ paths:
                           '_id': '62c4bb0e30d9104b545ad76c',
                           'bandAvatar': '/images/avatar-digitization-g12e7f4df0_640.jpg',
                           'bandId': '62c34c0163b157643ada9f59',
-                          '__v': 0,
                         },
                       ],
                   }

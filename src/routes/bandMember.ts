@@ -1,4 +1,5 @@
 import express from 'express'
+import { authMiddleware } from '../middlewares'
 import {
   addBandMember,
   getBandMembers,
@@ -9,10 +10,10 @@ import {
 
 const router = express.Router()
 
-router.post('/add', addBandMember)
+router.post('/add', authMiddleware, addBandMember)
 
 router.get('/get', getBandMembers)
-router.get('/get-one/:memberId', getOneBandMember)
-router.put('/edit/:memberId', editBandMember)
-router.delete('/delete/:memberId', deleteBandMember)
+router.get('/get-one/:memberId', authMiddleware, getOneBandMember)
+router.put('/edit/:memberId', authMiddleware, editBandMember)
+router.delete('/delete/:memberId', authMiddleware, deleteBandMember)
 export default router

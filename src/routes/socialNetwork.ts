@@ -1,4 +1,5 @@
 import express from 'express'
+import { authMiddleware } from '../middlewares'
 import {
   addSocialNetwork,
   getSocialNetworks,
@@ -9,9 +10,9 @@ import {
 
 const router = express.Router()
 
-router.post('/add', addSocialNetwork)
+router.post('/add', authMiddleware, addSocialNetwork)
 router.get('/get', getSocialNetworks)
-router.get('/get-one/:socialId', getOneSocialNetwork)
-router.put('/edit/:socialId', editSocialNetwork)
-router.delete('/delete/:socialId', deleteSocialNetwork)
+router.get('/get-one/:socialId', authMiddleware, getOneSocialNetwork)
+router.put('/edit/:socialId', authMiddleware, editSocialNetwork)
+router.delete('/delete/:socialId', authMiddleware, deleteSocialNetwork)
 export default router
