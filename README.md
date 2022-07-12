@@ -2,7 +2,7 @@
 
 ### Music Band Page with dashboard
 
-- [Production Url](https://github.com/RedberryInternship/inside-joke-api-omarijalagania.git) - Inside Joke
+- [Production Url](https://github.com/RedberryInternship/folksoul-api-omarijalagania.git) - FolkSoul
 
 ### Table of Contents
 
@@ -43,7 +43,7 @@
 1\. First of all you need to clone repository from github:
 
 ```sh
-git clone https://github.com/RedberryInternship/inside-joke-api-omarijalagania.git
+git clone https://github.com/RedberryInternship/folksoul-api-omarijalagania.git
 ```
 
 2\. Next step requires install all the dependencies.
@@ -176,6 +176,12 @@ npm ci
 
 to install all necessary packages.
 
+Build server with command:
+
+```sh
+npm run build:prod
+```
+
 In order to run your app on server like service you need to install pm2 tool:
 
 ```sh
@@ -185,5 +191,5 @@ sudo npm install pm2 -g
 after installing just run:
 
 ```sh
-pm2 start node src/server.js
+pm2 start node build/server.js
 ```
