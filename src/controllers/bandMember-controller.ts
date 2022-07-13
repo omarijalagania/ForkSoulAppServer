@@ -83,7 +83,7 @@ export const editBandMember = async (req: Request, res: Response) => {
   }
 
   try {
-    const bandMember = await BandMember.updateOne(
+    const bandMember = await BandMember.findOneAndUpdate(
       {
         _id: req.params.memberId,
       },
