@@ -1,4 +1,4 @@
-# Inside Joke
+# FolkSoul
 
 ### Music Band Page with dashboard
 
