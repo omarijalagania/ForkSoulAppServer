@@ -17,3 +17,9 @@ export type SocialNetworkProps = {
   name: string
   socialLink: string
 }
+
+export type PropsPrompt = {
+  name: string
+  hidden: boolean
+  replace: string
+}

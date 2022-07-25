@@ -13,7 +13,7 @@ const router = express.Router()
 router.post('/add', authMiddleware, addBandMember)
 
 router.get('/get', getBandMembers)
-router.get('/get-one/:memberId', authMiddleware, getOneBandMember)
+router.get('/get/:memberId', authMiddleware, getOneBandMember)
 router.put('/edit/:memberId', authMiddleware, editBandMember)
 router.delete('/delete/:memberId', authMiddleware, deleteBandMember)
 export default router

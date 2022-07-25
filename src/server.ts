@@ -28,7 +28,7 @@ app.use('/band', BandRouter)
 app.use('/band-info', BandInfoRouter)
 app.use('/social-network', SocialNetworkRouter)
 app.use('/', upload.single('avatar'), UploadRouter)
-//@ts-ignore
+
 app.use('/api-docs', swaggerMiddleware())
 
 app.listen(process.env.PORT || '4400', () => {

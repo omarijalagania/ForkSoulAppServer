@@ -190,7 +190,7 @@ paths:
                     },
                   ]
 
-  /band/get-one/{memberId}:
+  /band/get/{memberId}:
     get:
       summary: Get band member by ID
       parameters:
@@ -477,7 +477,7 @@ paths:
                   },
                 ]
 
-  /social-network/get-one/{socialId}:
+  /social-network/{socialId}:
     get:
       summary: Get social link by ID
       parameters:

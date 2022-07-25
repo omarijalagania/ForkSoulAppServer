@@ -12,7 +12,7 @@ const router = express.Router()
 
 router.post('/add', authMiddleware, addSocialNetwork)
 router.get('/get', getSocialNetworks)
-router.get('/get-one/:socialId', authMiddleware, getOneSocialNetwork)
+router.get('/get/:socialId', authMiddleware, getOneSocialNetwork)
 router.put('/edit/:socialId', authMiddleware, editSocialNetwork)
 router.delete('/delete/:socialId', authMiddleware, deleteSocialNetwork)
 export default router

@@ -3,7 +3,7 @@ import bcrypt from 'bcryptjs'
 import { User } from 'models'
 import { validateRegister } from 'schema'
 import { connectDB } from 'config'
-import { UserSchemaProps } from 'types'
+import { PropsPrompt, UserSchemaProps } from 'types'
 import prompt from 'prompt'
 
 prompt.start()
@@ -11,9 +11,8 @@ prompt.start()
 prompt.get(
   [
     { name: 'user_name' },
-    //@ts-ignore
-    { name: 'password', hidden: true, replace: '*' },
-    //@ts-ignore
+
+    { name: 'password', hidden: true, replace: '*' } as PropsPrompt,
     { name: 'confirmPassword', hidden: true, replace: '*' },
   ],
   async function (_, result: UserSchemaProps) {
