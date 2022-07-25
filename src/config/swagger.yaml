@@ -180,13 +180,10 @@ paths:
                       'color': '#ffffff',
                       'biography': 'ფანდურა',
                       'uploads':
-                        [
-                          {
-                            '_id': '62c19213ee129f5e98f5d82f',
-                            'avatar': '/images/avatar-unnamed.jpeg',
-                            'memberId': '62bc05ecb344f9cc27aa74c8',
-                          },
-                        ],
+                        {
+                          'avatar': '/images/avatar-unnamed.jpeg',
+                          'memberId': '62bc05ecb344f9cc27aa74c8',
+                        },
                     },
                   ]
 
@@ -467,13 +464,10 @@ paths:
                     'name': 'Twitter',
                     'socialUrl': 'https://twitter.com',
                     'socialUploads':
-                      [
-                        {
-                          '_id': '62c09aef675115d9e4f32d87',
-                          'socialAvatar': '/images/avatar-digitization-g12e7f4df0_640.jpg',
-                          'memberId': '62c34b356fe228a6897c1348',
-                        },
-                      ],
+                      {
+                        'socialAvatar': '/images/avatar-digitization-g12e7f4df0_640.jpg',
+                        'memberId': '62c34b356fe228a6897c1348',
+                      },
                   },
                 ]
 

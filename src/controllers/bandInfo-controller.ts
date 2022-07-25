@@ -13,6 +13,8 @@ export const getBandIfo = async (_: Request, res: Response) => {
         },
       },
       { $project: { __v: 0 } },
+      { $unset: ['bandAvatars._id'] },
+      { $unwind: '$bandAvatars' },
     ])
     if (!bandInfo) {
       res.status(404).send([])

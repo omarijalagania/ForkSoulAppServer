@@ -40,6 +40,8 @@ export const getBandMembers = async (_: Request, res: Response) => {
         },
       },
       { $project: { __v: 0 } },
+      { $unset: ['uploads._id'] },
+      { $unwind: '$uploads' },
     ])
     if (!bandMembers) {
       res.status(404).send([])

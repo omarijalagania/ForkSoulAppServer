@@ -35,6 +35,8 @@ export const getSocialNetworks = async (_: Request, res: Response) => {
         },
       },
       { $project: { __v: 0 } },
+      { $unset: ['socialUploads._id'] },
+      { $unwind: '$socialUploads' },
     ])
     if (!socialNetwork) {
       res.status(404).send([])
