@@ -2,7 +2,7 @@
 
 ### Music Band Page with dashboard
 
-- [Production Url](https://github.com/RedberryInternship/folksoul-api-omarijalagania.git) - FolkSoul
+- [Production Url](https://folksoul-api.omar.redberryinternship.ge) - FolkSoul
 
 ### Table of Contents
 
