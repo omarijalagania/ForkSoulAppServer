@@ -1,5 +1,5 @@
 export { default as AuthRouter } from './auth'
-export { default as BandRouter } from './bandMember'
-export { default as SocialNetworkRouter } from './socialNetwork'
+export { default as BandRouter } from './band-member'
+export { default as SocialNetworkRouter } from './social-network'
 export { default as UploadRouter } from './upload'
-export { default as BandInfoRouter } from './bandInfo'
+export { default as BandInfoRouter } from './band-info'
