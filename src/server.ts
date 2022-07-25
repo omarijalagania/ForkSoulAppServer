@@ -11,7 +11,7 @@ import {
   SocialNetworkRouter,
   UploadRouter,
   BandInfoRouter,
-} from './routes'
+} from 'routes'
 import { swaggerMiddleware } from 'middlewares'
 dotenv.config({ path: path.resolve(__dirname, '../.env') })
 const app = express()
