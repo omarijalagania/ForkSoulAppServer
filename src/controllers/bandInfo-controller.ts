@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import { BandInfo } from '../models'
+import { BandInfo } from 'models'
 
 export const getBandIfo = async (_: Request, res: Response) => {
   try {

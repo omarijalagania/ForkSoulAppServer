@@ -1,9 +1,9 @@
 import 'dotenv/config'
 import bcrypt from 'bcryptjs'
-import { User } from '../models'
-import { validateRegister } from '../schema'
-import { connectDB } from '../config'
-import { UserSchemaProps } from '../types'
+import { User } from 'models'
+import { validateRegister } from 'schema'
+import { connectDB } from 'config'
+import { UserSchemaProps } from 'types'
 import prompt from 'prompt'
 
 prompt.start()

@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
 import mongoose from 'mongoose'
-import { Upload, SocialUpload, BandAvatar } from '../models'
+import { Upload, SocialUpload, BandAvatar } from 'models'
 
 export const avatarUpload = async (req: Request, res: Response) => {
   if (!mongoose.Types.ObjectId.isValid(req.params.memberId)) {

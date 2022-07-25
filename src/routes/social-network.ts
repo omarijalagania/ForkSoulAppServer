@@ -1,5 +1,5 @@
 import express from 'express'
-import { authMiddleware } from '../middlewares'
+import { authMiddleware } from 'middlewares'
 import {
   addSocialNetwork,
   getSocialNetworks,

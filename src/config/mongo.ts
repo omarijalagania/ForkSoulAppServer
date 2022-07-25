@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-import { compassMongoConnection, atlasMongoConnection } from './index'
+import { compassMongoConnection, atlasMongoConnection } from 'config'
 
 const connectDB = async (close: boolean) => {
   try {

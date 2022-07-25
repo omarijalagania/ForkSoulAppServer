@@ -7,7 +7,7 @@ import {
   getBandAvatar,
 } from '../controllers'
 import express from 'express'
-import { authMiddleware } from '../middlewares'
+import { authMiddleware } from 'middlewares'
 const router = express.Router()
 
 router.post('/avatar/upload/:memberId', authMiddleware, avatarUpload)

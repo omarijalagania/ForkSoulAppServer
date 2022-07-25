@@ -3,8 +3,8 @@ import express from 'express'
 import cors from 'cors'
 import path from 'path'
 import bodyParser from 'body-parser'
-import { connectDB } from './config'
-import { upload } from './utils'
+import { connectDB } from 'config'
+import { upload } from 'utils'
 import {
   AuthRouter,
   BandRouter,
@@ -12,7 +12,7 @@ import {
   UploadRouter,
   BandInfoRouter,
 } from './routes'
-import { authMiddleware, swaggerMiddleware } from './middlewares'
+import { swaggerMiddleware } from 'middlewares'
 dotenv.config({ path: path.resolve(__dirname, '../.env') })
 const app = express()
 app.use(express.json())

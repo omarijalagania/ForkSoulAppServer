@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
-import { validateBandMember } from '../schema'
-import { BandMember } from '../models'
+import { validateBandMember } from 'schema'
+import { BandMember } from 'models'
 import mongoose from 'mongoose'
 
 export const addBandMember = async (req: Request, res: Response) => {
