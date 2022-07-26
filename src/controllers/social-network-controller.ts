@@ -35,7 +35,7 @@ export const getSocialNetworks = async (_: Request, res: Response) => {
         },
       },
       { $project: { __v: 0 } },
-      { $unset: ['socialUploads._id'] },
+      { $unset: ['socialUploads._id', 'socialUploads.memberId'] },
       { $unwind: '$socialUploads' },
     ])
     if (!socialNetwork) {

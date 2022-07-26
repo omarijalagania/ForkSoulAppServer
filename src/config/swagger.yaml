@@ -179,11 +179,7 @@ paths:
                       'orbitLength': 400,
                       'color': '#ffffff',
                       'biography': 'ფანდურა',
-                      'uploads':
-                        {
-                          'avatar': '/images/avatar-unnamed.jpeg',
-                          'memberId': '62bc05ecb344f9cc27aa74c8',
-                        },
+                      'uploads': { 'avatar': '/images/avatar-unnamed.jpeg' },
                     },
                   ]
 
@@ -466,7 +462,6 @@ paths:
                     'socialUploads':
                       {
                         'socialAvatar': '/images/avatar-digitization-g12e7f4df0_640.jpg',
-                        'memberId': '62c34b356fe228a6897c1348',
                       },
                   },
                 ]

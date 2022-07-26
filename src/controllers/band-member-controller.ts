@@ -40,7 +40,7 @@ export const getBandMembers = async (_: Request, res: Response) => {
         },
       },
       { $project: { __v: 0 } },
-      { $unset: ['uploads._id'] },
+      { $unset: ['uploads._id', 'uploads.memberId'] },
       { $unwind: '$uploads' },
     ])
     if (!bandMembers) {
