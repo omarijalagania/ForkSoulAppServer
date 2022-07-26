@@ -2,7 +2,7 @@
 
 ### Music Band Page with dashboard
 
-- [Production Url](https://folksoul-api.omar.redberryinternship.ge) - FolkSoul
+- [Production Url](https://folksoul-api.omar.redberryinternship.ge/api-docs) - FolkSoul
 
 ### Table of Contents
 
